@@ -1,0 +1,89 @@
+// to import data run node dev-data/data/import-dev-data.js --import
+// to delete data run node dev-data/data/import-dev-data.js --delete 
+
+1- what can you get from this API:
+	- you can query from all the tours using fields or (lt,lte,gt,gte) : e.g.: 127.0.0.1:3000/api/v1/tours?difficulty=easy&duration[gte]=5&price[lt]=1500
+		or sort them : e.g. : 127.0.0.1:3000/api/v1/tours?sort=price (as)
+			: e.g. : 127.0.0.1:3000/api/v1/tours?sort=-price (des)
+		multiple sorting : e.g. : 127.0.0.1:3000/api/v1/tours?sort=-price,-ratingsAverage
+		or Projection : e.g. : 127.0.0.1:3000/api/v1/tours?fields=name,duration,difficulty,price
+				e.g.: 127.0.0.1:3000/api/v1/tours?fields=-name,-duration
+		or Pagination : e.g. : 127.0.0.1:3000/api/v1/tours?page=4&limit=3
+	
+	- you can query the top 5 tours and the cheapest : e.g. : 127.0.0.1:3000/api/v1/tours/top-5-cheap
+
+	- you can query a particular tour using its ID : e.g.: 127.0.0.1:3000/api/v1/tours/6121a08308002113703c6de1
+	
+	- you can create a tour : e.g.: 127.0.0.1:3000/api/v1/tours 
+	 : body: 
+		{
+		    "name":"The Snow Adventurer",
+		    "duration":4,
+		    "maxGroupSize":10,
+		    "difficulty":"difficult",
+		    "ratingsAverage":4.5,
+		    "ratingsQuantity":13,
+		    "price":997,
+		    "summary":"Exciting adventure in the snow with snowboarding and skiing",
+		    "description":"Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum!\nDolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur, exercitation ullamco laboris nisi ut aliquip. Lorem ipsum dolor sit amet, consectetur adipisicing elit!",
+		    "imageCover":"tour-3-cover.jpg",
+		    "images":["tour-3-1.jpg","tour-3-2.jpg","tour-3-3.jpg"],
+		    "startDates":["2022-01-05,10:00","2022-02-12,10:00","2023-01-06,10:00"]
+		}
+	
+	- you can delete a tour using its ID : e.g.: 127.0.0.1:3000/api/v1/tours/id
+	
+	- you can modify a tour using its ID : e.g. : 127.0.0.1:3000/api/v1/tours/id
+	: body: 
+		{
+		    "price": "500"
+		}
+	
+	- you can get all the users : e.g. : 127.0.0.1:3000/api/v1/users
+	
+	- you can get a particular user using its ID : e.g. : 127.0.0.1:3000/api/v1/users/id
+
+	-you can get statistics about all tours we have: e.g. :  avgRating, avgPrice, minPrice, maxPrice, numTours, numRatings : 127.0.0.1:3000/api/v1/tours/tour-stats
+
+	- you can get monthly plan by the year : e.g.: 127.0.0.1:3000/api/v1/tours/monthly-plan/2021
+
+	- you can signup user : e.g.: 127.0.0.1:3000/api/v1/users/signup 
+		: body :
+			{
+   			 "name":"jonas",
+    			 "email": "test@jonas.io",
+  			 "password": "pass1234",
+  			 "passwordConfirm": "pass1234"
+			}
+	- you can login user : e.g. : 127.0.0.1:3000/api/v1/users/login
+		:body: 
+			{
+    			 "email":"test@jonas.io",
+   			 "password": "pass1234"
+			}
+	- you can request reset password if you forgot the password : e.g.: /api/v1/users/forgotPassword
+			:body:  {
+ 				   "email":"hello@jonas.io"
+				}
+	
+	- you can reset you password using the token you get from email : e.g: /api/v1/users/resetPassword/b6eb7b8369f3815e31d9d8989ba3f938086c6de852c470b74b1c98bb230d9e00
+
+		:body:  {
+ 			   "password":"newpass123",
+    			   "passwordConfirm":"newpass123"
+			}
+
+	- you can change your password if you want : e.g. : /api/v1/users/updateMyPassword
+		:body:	{
+    				"passwordCurrent": "pass1234",
+    				"password":"newpassword",
+    				"passwordConfirm":"newpassword"
+			}
+	- you can update user's data except password : e.g: /api/v1/users/updateMe
+		: body :
+			{
+    				"name" : "Jonas",
+    				"email":"test2@jonas.io"
+			}
+
+	- you can delete user (your account): e.g. : /api/v1/users/deleteMe
